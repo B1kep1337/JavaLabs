@@ -54,6 +54,12 @@ public class ContactEditor extends javax.swing.JFrame {
             }
         });
 
+        jTextFieldNiz.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldNizActionPerformed(evt);
+            }
+        });
+
         jButtonAdd.setText("добавить");
         jButtonAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -69,6 +75,11 @@ public class ContactEditor extends javax.swing.JFrame {
         });
 
         jButtonCalc.setText("вычислить");
+        jButtonCalc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCalcActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("вп");
 
@@ -148,7 +159,7 @@ public class ContactEditor extends javax.swing.JFrame {
 
             },
             new String [] {
-                "нп", "вп", "шаг", "результат"
+                "вп", "нп", "шаг", "результат"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -185,12 +196,17 @@ public class ContactEditor extends javax.swing.JFrame {
 
     private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
        // TODO add your handling code here:
-       double upper, lower, step;
-       upper = Double.parseDouble(jTextFieldverx.getText());
-       lower = Double.parseDouble(jTextFieldNiz.getText());
+       double upper, lower, step, vp, np;
+       
+       vp = Double.parseDouble(jTextFieldverx.getText());
+       np = Double.parseDouble(jTextFieldNiz.getText());
        step = Double.parseDouble(jTextFieldStep.getText());
+       
+       lower = Math.min (vp, np);
+       upper = Math.max(vp, np);
+ 
        DefaultTableModel Tmodel = (DefaultTableModel)jTable1.getModel();
-       Tmodel.addRow(new Object [] {upper, lower, step});
+       Tmodel.addRow(new Object [] {upper,lower,step});
        
     }//GEN-LAST:event_jButtonAddActionPerformed
 
@@ -204,6 +220,65 @@ public class ContactEditor extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_jButtonDelActionPerformed
+
+    private void jButtonCalcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCalcActionPerformed
+        // TODO add your handling code here:
+       int row = jTable1.getSelectedRow();
+    DefaultTableModel Tmodel = (DefaultTableModel)jTable1.getModel();
+
+// Проверка: выбрана ли строка
+    if (row == -1) {
+    return;
+}
+
+    try {
+    double lower = Double.parseDouble(Tmodel.getValueAt(row, 0).toString());  
+    double upper = Double.parseDouble(Tmodel.getValueAt(row, 1).toString());  
+    double step = Double.parseDouble(Tmodel.getValueAt(row, 2).toString());  
+
+    
+    // Проверка шага
+    if (step <= 0) {
+        Tmodel.setValueAt("Ошибка: шаг > 0", row, 3);
+        return;
+    }
+    
+    // Вычисление интеграла ∫tg(x)dx
+        double integral = 0;
+        boolean hasDiscontinuity = false;
+        
+        for (double x = lower; x < upper; x += step) {
+            double x_next = Math.min(x + step, upper);
+            
+            // Проверка на разрывы
+            double cos1 = Math.cos(x);
+            double cos2 = Math.cos(x_next);
+            
+            if (Math.abs(cos1) < 1e-10 || Math.abs(cos2) < 1e-10) {
+                hasDiscontinuity = true;
+                break;
+            }
+            
+            // Метод трапеций
+            double y1 = Math.tan(x);
+            double y2 = Math.tan(x_next);
+            double area = (y1 + y2) * (x_next - x) / 2;
+            
+            integral += area;
+        }
+        
+        Tmodel.setValueAt(integral, row, 3);
+        
+    } catch (NumberFormatException e) {
+        Tmodel.setValueAt("Ошибка: введите числа", row, 3);
+    } catch (Exception e) {
+        Tmodel.setValueAt("Ошибка вычисления", row, 3);
+    }                     
+    }//GEN-LAST:event_jButtonCalcActionPerformed
+
+    private void jTextFieldNizActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNizActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldNizActionPerformed
 
     /**
      * @param args the command line arguments
