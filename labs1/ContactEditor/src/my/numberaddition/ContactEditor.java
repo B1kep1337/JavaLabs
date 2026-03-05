@@ -232,8 +232,8 @@ public class ContactEditor extends javax.swing.JFrame {
 }
 
     try {
-    double lower = Double.parseDouble(Tmodel.getValueAt(row, 0).toString());  
-    double upper = Double.parseDouble(Tmodel.getValueAt(row, 1).toString());  
+    double lower = Double.parseDouble(Tmodel.getValueAt(row, 1).toString());  
+    double upper = Double.parseDouble(Tmodel.getValueAt(row, 0).toString());  
     double step = Double.parseDouble(Tmodel.getValueAt(row, 2).toString());  
 
     
