@@ -4,15 +4,16 @@
  * and open the template in the editor.
  */
 package my.numberaddition;
-
 import javax.swing.table.DefaultTableModel;
+import java.util.LinkedList;
         
 /**
  *
  * @author student
  */
 public class ContactEditor extends javax.swing.JFrame {
-
+    LinkedList<RecIntegral> linkInteg = new LinkedList<>();
+    
     /**
      * Creates new form ContactEditor
      */
@@ -30,8 +31,8 @@ public class ContactEditor extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jTextFieldverx = new javax.swing.JTextField();
-        jTextFieldNiz = new javax.swing.JTextField();
+        jTextFieldUpper = new javax.swing.JTextField();
+        jTextFieldLower = new javax.swing.JTextField();
         jTextFieldStep = new javax.swing.JTextField();
         jButtonAdd = new javax.swing.JButton();
         jButtonDel = new javax.swing.JButton();
@@ -40,6 +41,8 @@ public class ContactEditor extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jButtonOchist = new javax.swing.JButton();
+        jButtonZapoln = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -48,15 +51,15 @@ public class ContactEditor extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
-        jTextFieldverx.addActionListener(new java.awt.event.ActionListener() {
+        jTextFieldUpper.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldverxActionPerformed(evt);
+                jTextFieldUpperActionPerformed(evt);
             }
         });
 
-        jTextFieldNiz.addActionListener(new java.awt.event.ActionListener() {
+        jTextFieldLower.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldNizActionPerformed(evt);
+                jTextFieldLowerActionPerformed(evt);
             }
         });
 
@@ -89,6 +92,20 @@ public class ContactEditor extends javax.swing.JFrame {
 
         jLabel4.setText("шаг");
 
+        jButtonOchist.setText("Очистить");
+        jButtonOchist.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonOchistActionPerformed(evt);
+            }
+        });
+
+        jButtonZapoln.setText("Заполнить");
+        jButtonZapoln.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonZapolnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -107,14 +124,20 @@ public class ContactEditor extends javax.swing.JFrame {
                             .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextFieldverx)
-                            .addComponent(jTextFieldNiz)
+                            .addComponent(jTextFieldUpper)
+                            .addComponent(jTextFieldLower)
                             .addComponent(jTextFieldStep, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonAdd, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jButtonCalc, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButtonDel, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButtonZapoln)
+                            .addComponent(jButtonOchist))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButtonAdd, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButtonDel, javax.swing.GroupLayout.Alignment.TRAILING))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -123,11 +146,11 @@ public class ContactEditor extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldverx, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldUpper, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldNiz, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldLower, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -135,9 +158,13 @@ public class ContactEditor extends javax.swing.JFrame {
                     .addComponent(jLabel4)))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButtonAdd)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonAdd)
+                    .addComponent(jButtonOchist))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButtonDel)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonDel)
+                    .addComponent(jButtonZapoln))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonCalc)
                 .addContainerGap())
@@ -190,23 +217,25 @@ public class ContactEditor extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextFieldverxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldverxActionPerformed
+    private void jTextFieldUpperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldUpperActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldverxActionPerformed
+    }//GEN-LAST:event_jTextFieldUpperActionPerformed
 
     private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
        // TODO add your handling code here:
-       double upper, lower, step, vp, np;
-       
-       vp = Double.parseDouble(jTextFieldverx.getText());
-       np = Double.parseDouble(jTextFieldNiz.getText());
-       step = Double.parseDouble(jTextFieldStep.getText());
-       
-       lower = Math.min (vp, np);
-       upper = Math.max(vp, np);
- 
-       DefaultTableModel Tmodel = (DefaultTableModel)jTable1.getModel();
-       Tmodel.addRow(new Object [] {upper,lower,step});
+        double upper, lower, step, vp, np;
+
+
+        vp = Double.parseDouble(jTextFieldUpper.getText());
+        np = Double.parseDouble(jTextFieldLower.getText());
+        step = Double.parseDouble(jTextFieldStep.getText());
+
+        lower = Math.min (vp, np);
+        upper = Math.max(vp, np);
+        RecIntegral rec = new RecIntegral(upper, lower, step);
+        linkInteg.add(rec);
+        DefaultTableModel Tmodel = (DefaultTableModel)jTable1.getModel();
+        Tmodel.addRow(new Object [] {rec.getUpper() ,rec.getLower(),rec.getStep()});
        
     }//GEN-LAST:event_jButtonAddActionPerformed
 
@@ -217,6 +246,7 @@ public class ContactEditor extends javax.swing.JFrame {
                DefaultTableModel Tmodel = (DefaultTableModel)jTable1.getModel();
         if (row != -1){
             Tmodel.removeRow(row);
+            linkInteg.remove(row);
         }
         
     }//GEN-LAST:event_jButtonDelActionPerformed
@@ -224,61 +254,66 @@ public class ContactEditor extends javax.swing.JFrame {
     private void jButtonCalcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCalcActionPerformed
         // TODO add your handling code here:
        int row = jTable1.getSelectedRow();
-    DefaultTableModel Tmodel = (DefaultTableModel)jTable1.getModel();
+        DefaultTableModel Tmodel = (DefaultTableModel)jTable1.getModel();
 
-// Проверка: выбрана ли строка
-    if (row == -1) {
-    return;
-}
-
-    try {
-    double lower = Double.parseDouble(Tmodel.getValueAt(row, 1).toString());  
-    double upper = Double.parseDouble(Tmodel.getValueAt(row, 0).toString());  
-    double step = Double.parseDouble(Tmodel.getValueAt(row, 2).toString());  
-
-    
-    // Проверка шага
-    if (step <= 0) {
-        Tmodel.setValueAt("Ошибка: шаг > 0", row, 3);
+    // Проверка: выбрана ли строка
+        if (row == -1) {
         return;
     }
-    
-    // Вычисление интеграла ∫tg(x)dx
-        double integral = 0;
-        boolean hasDiscontinuity = false;
-        
-        for (double x = lower; x < upper; x += step) {
-            double x_next = Math.min(x + step, upper);
-            
-            // Проверка на разрывы
-            double cos1 = Math.cos(x);
-            double cos2 = Math.cos(x_next);
-            
-            if (Math.abs(cos1) < 1e-10 || Math.abs(cos2) < 1e-10) {
-                hasDiscontinuity = true;
-                break;
-            }
-            
-            // Метод трапеций
-            double y1 = Math.tan(x);
-            double y2 = Math.tan(x_next);
-            double area = (y1 + y2) * (x_next - x) / 2;
-            
-            integral += area;
+
+        try {
+        double lower = Double.parseDouble(Tmodel.getValueAt(row, 1).toString());  
+        double upper = Double.parseDouble(Tmodel.getValueAt(row, 0).toString());  
+        double step = Double.parseDouble(Tmodel.getValueAt(row, 2).toString());  
+
+
+        // Проверка шага
+        if (step <= 0) {
+            Tmodel.setValueAt("Ошибка: шаг > 0", row, 3);
+            return;
         }
+
+        RecIntegral rec = new RecIntegral(upper, lower, step);
+        double result = rec.Calcint(rec.getUpper(), rec.getLower(), rec.getStep()); 
         
-        Tmodel.setValueAt(integral, row, 3);
+        rec.setResult(result);
         
-    } catch (NumberFormatException e) {
-        Tmodel.setValueAt("Ошибка: введите числа", row, 3);
-    } catch (Exception e) {
-        Tmodel.setValueAt("Ошибка вычисления", row, 3);
-    }                     
+            Tmodel.setValueAt(rec.getResult(), row, 3);
+            linkInteg.set(row, rec);
+
+        } catch (NumberFormatException e) {
+            Tmodel.setValueAt("Ошибка: введите числа", row, 3);
+        } catch (Exception e) {
+            Tmodel.setValueAt("Ошибка вычисления", row, 3);
+        }                     
     }//GEN-LAST:event_jButtonCalcActionPerformed
 
-    private void jTextFieldNizActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNizActionPerformed
+    private void jTextFieldLowerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldLowerActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldNizActionPerformed
+    }//GEN-LAST:event_jTextFieldLowerActionPerformed
+
+    private void jButtonOchistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOchistActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel tModel = (DefaultTableModel)jTable1.getModel();
+        tModel.setNumRows(0);
+        
+    }//GEN-LAST:event_jButtonOchistActionPerformed
+
+    private void jButtonZapolnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonZapolnActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel tModel = (DefaultTableModel)jTable1.getModel();
+        tModel.setNumRows(0);
+        
+        for(RecIntegral item:linkInteg){
+            tModel.addRow (new Object[]{
+                item.getUpper(),
+                item.getLower(),
+                item.getStep(),
+                item.getResult()
+            });
+        }
+        
+    }//GEN-LAST:event_jButtonZapolnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -319,6 +354,8 @@ public class ContactEditor extends javax.swing.JFrame {
     private javax.swing.JButton jButtonAdd;
     private javax.swing.JButton jButtonCalc;
     private javax.swing.JButton jButtonDel;
+    private javax.swing.JButton jButtonOchist;
+    private javax.swing.JButton jButtonZapoln;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -327,8 +364,8 @@ public class ContactEditor extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextFieldNiz;
+    private javax.swing.JTextField jTextFieldLower;
     private javax.swing.JTextField jTextFieldStep;
-    private javax.swing.JTextField jTextFieldverx;
+    private javax.swing.JTextField jTextFieldUpper;
     // End of variables declaration//GEN-END:variables
 }
